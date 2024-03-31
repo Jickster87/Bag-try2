@@ -6,12 +6,13 @@ using namespace std;
 
 
 Bag::Bag() {
-	// how do you turn this thing on :)) 
+	// how do you turn this thing on :)
 
 	//if (arrayCapacity <= 0) {
 	//	throw exception();
 	//}
-	this->arrayCapacity = arrayCapacity;
+    
+	this->arrayCapacity = 1; // ??
 	this->bagSize = 0;
 	this->elements = new TElem[arrayCapacity];
 }
@@ -19,43 +20,40 @@ Bag::Bag() {
 
 void Bag::add(TElem elem) {
 
-	//resize
+	// Resize if needed
 	if (this->bagSize == this->arrayCapacity) {
 		this->arrayCapacity *= 2;
 		TElem* newArray = new TElem[this->arrayCapacity];
-
-		int index = 0;
-		while (index < this->bagSize) {
-			newArray[index] = this->elements[index];
-			index++;
+		for (int i = 0; i < this->bagSize; i++) {
+			newArray[i] = this->elements[i];
 		}
-
-		delete this->elements; // delete inside array, but not array itself??
+		delete[] this->elements;
 		this->elements = newArray;
 	}
 
-	//search elem
-
-	int index = 0;
-	int occurrence = 0; // not sure this is right, which occurrence am I incrementing?
-	while (index < this->bagSize) {
-		if (this->elements[index] == elem) {
-			occurrence += 1;
-		}
-		index++;
-	}
-
-	//insert elem
-	//TO DO 
-
-
+	// Insert elem
+	this->elements[this->bagSize] = elem;
 	this->bagSize++;
 }
 
 
 bool Bag::remove(TElem elem) {
 	//TODO - Implementation
-	return false; 
+    // take last element and switch with found element and decrement --
+    int index = 0;
+    while (index < this->bagSize) {
+        if (this->elements[index] == elem) {
+            this->elements[index] = this->elements[bagSize - 1]; // is [index-1] last element in the bag?
+			this->bagSize--;
+			return true;
+		}
+		index++;
+    }   
+    //downsize if half of the array is empty
+    //if (this->bagSize < this->arrayCapacity/2) {
+         //TO DO
+    //    }
+	return false; // no element to remove
 }
 
 
@@ -67,30 +65,24 @@ bool Bag::search(TElem elem) const {
 		}
 		index++;
 	}
-	return false; 
+  	return false;
 }
 
 int Bag::nrOccurrences(TElem elem) const {
-	int nrOccurrences = 0;
+	int count = 0;
 	int index = 0;
 	while (index < this->bagSize) {
 		if (this->elements[index] == elem) {
-			nrOccurrences += 1;
+			count += 1;
 		}
 		index++;
 	}
-	return nrOccurrences; 
+	return count;
 }
 
 
 int Bag::size() const {
-	int totalOccurrences = 0;
-	int index = 0;
-	while (index < this->bagSize) {
-		totalOccurrences += this->elements[index];
-		index++;
-	}
-	return totalOccurrences;
+	return this->bagSize;
 }
 
 
@@ -105,6 +97,6 @@ BagIterator Bag::iterator() const {
 
 
 Bag::~Bag() {
-	delete[] this->elements; //does this delete all arrays inside??
+	delete[] this->elements; 
 }
 

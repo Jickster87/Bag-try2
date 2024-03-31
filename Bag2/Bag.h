@@ -4,11 +4,8 @@
 
 //DO NOT CHANGE THIS PART
 #define NULL_TELEM -111111;
-
 typedef int TElem;
-//typedef std::pair<TElem, TElem> PairOccurence;
-
-class BagIterator; 
+class BagIterator;
 class Bag {
 
 private:

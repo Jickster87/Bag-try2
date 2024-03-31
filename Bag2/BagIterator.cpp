@@ -5,7 +5,7 @@
 using namespace std;
 
 
-BagIterator::BagIterator(const Bag& c): bag(c)
+BagIterator::BagIterator(const Bag& c) : bag(c)
 {
 	this->currentPosition = 0;
 }
@@ -16,7 +16,7 @@ void BagIterator::first() {
 
 
 void BagIterator::next() {
-	if (this->currentPosition == this->bag.bagSize) {
+	if (this->currentPosition >= this->bag.bagSize) {
 		throw exception();
 	}
 	this->currentPosition++;
@@ -30,10 +30,12 @@ bool BagIterator::valid() const {
 
 TElem BagIterator::getCurrent() const
 {
-	// cheatGPT :)) ... but why?
-	if (!valid()) {
-		return NULL_TELEM
-	}
-
-	return this->bag.elements[this->currentPosition]
+	// cheatGPT ... but why?
+	//if (!valid()) {
+    //    return NULL_TELEM;
+	//}
+    if (this->currentPosition >= this->bag.bagSize){
+        throw exception();
+    }
+    return this->bag.elements[this->currentPosition];
 }
