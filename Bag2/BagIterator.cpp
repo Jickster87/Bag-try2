@@ -30,7 +30,7 @@ bool BagIterator::valid() const {
 
 TElem BagIterator::getCurrent() const
 {
-	// cheatGPT ... but why?
+	// cheatGPT ... not sure if needed?
 	//if (!valid()) {
     //    return NULL_TELEM;
 	//}

@@ -6,13 +6,12 @@ using namespace std;
 
 
 Bag::Bag() {
-	// how do you turn this thing on :)
-
+	// how do you turn this thing on
 	//if (arrayCapacity <= 0) {
 	//	throw exception();
 	//}
     
-	this->arrayCapacity = 1; // ??
+	this->arrayCapacity = 1; // ?? seems to be ok :)
 	this->bagSize = 0;
 	this->elements = new TElem[arrayCapacity];
 }
@@ -20,7 +19,7 @@ Bag::Bag() {
 
 void Bag::add(TElem elem) {
 
-	// Resize if needed
+	// Resize
 	if (this->bagSize == this->arrayCapacity) {
 		this->arrayCapacity *= 2;
 		TElem* newArray = new TElem[this->arrayCapacity];
@@ -31,15 +30,15 @@ void Bag::add(TElem elem) {
 		this->elements = newArray;
 	}
 
-	// Insert elem
-	this->elements[this->bagSize] = elem;
+	// Insert elem 
+	this->elements[this->bagSize] = elem; //this has a warning of buffer overrun, don't understand this yet
 	this->bagSize++;
 }
 
 
 bool Bag::remove(TElem elem) {
 	//TODO - Implementation
-    // take last element and switch with found element and decrement --
+    // take last element and switch with found element and decrement bag --
     int index = 0;
     while (index < this->bagSize) {
         if (this->elements[index] == elem) {
@@ -51,9 +50,9 @@ bool Bag::remove(TElem elem) {
     }   
     //downsize if half of the array is empty
     //if (this->bagSize < this->arrayCapacity/2) {
-         //TO DO
+         //TO DO (similar to add but reverse-ish)
     //    }
-	return false; // no element to remove
+	return false; 
 }
 
 
